@@ -9,43 +9,41 @@ let startMaxPrize = 100;
 let possiblePrize;
 let userNumber, gameRandomNumb;
 
-if (gameQuestion) {
-    while (gameQuestion) {
-        // let startMaxPrize = 100;
-        possiblePrize = startMaxPrize;
-        gameRandomNumb = Math.floor(Math.random() * (maxRange + 1));
-        for (let i = 0; i < attempts; i++) {
-            if (i > 0) {
-                possiblePrize /= gameIndex;
-            }
-            userNumber = +prompt(`Choose a roulette pocket number from 0 to ${maxRange}
+if (!gameQuestion) {
+    alert('You did not become a billionaire, but can');
+}
+while (gameQuestion) {
+    possiblePrize = startMaxPrize;
+    gameRandomNumb = Math.floor(Math.random() * (maxRange + 1));
+    for (let i = 0; i < attempts; i++) {
+        if (i > 0) {
+            possiblePrize /= gameIndex;
+        }
+        userNumber = +prompt(`Choose a roulette pocket number from 0 to ${maxRange}
             Attemts left:${attempts - i} 
             Total prize: ${totalPrize}$ 
             Possible prize on current userAttempts:${possiblePrize}$`);
-            if (userNumber === gameRandomNumb) {
-                totalPrize += possiblePrize;
-                alert(`Congratulation, you won! Your prize is:${totalPrize}$`);
-                if (confirm('Do you want to continue?')) {
-                    gameRandomNumb = Math.floor(Math.random() * (maxRange + 1));
-                    maxRange += rangeValueIncrement;
-                    startMaxPrize *= gameIndex;
-                    possiblePrize = startMaxPrize;
-                    i = countReset;
-                } else {
-                    alert(
-                        `Thank you for your participation.Your prize is: ${totalPrize}$`
-                    );
-                    totalPrize = 0;
-                    break;
-                }
-            } else if (isNaN(userNumber)) {
-                alert(`Thank you for your participation.Your prize is: ${totalPrize}$`);
+        if (userNumber === gameRandomNumb) {
+            totalPrize += possiblePrize;
+            alert(`Congratulation, you won! Your prize is:${totalPrize}$`);
+            if (confirm('Do you want to continue?')) {
+                gameRandomNumb = Math.floor(Math.random() * (maxRange + 1));
+                maxRange += rangeValueIncrement;
+                startMaxPrize *= gameIndex;
+                possiblePrize = startMaxPrize;
+                i = countReset;
+            } else {
+                alert(
+                    `Thank you for your participation.Your prize is: ${totalPrize}$`
+                );
+                totalPrize = 0;
                 break;
             }
+        } else if (isNaN(userNumber)) {
+            alert(`Thank you for your participation.Your prize is: ${totalPrize}$`);
+            break;
         }
-        gameQuestion = confirm('Do you want to play again?');
-        totalPrize = 0;
     }
-} else {
-    alert('You did not become a billionaire, but can.');
+    gameQuestion = confirm('Do you want to play again?');
+    totalPrize = 0;
 }
